@@ -2,8 +2,12 @@ import {AiOutlineSearch, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} fro
 import {MdOutlineCategory} from "react-icons/md" 
 import {ImMusic} from "react-icons/im"
 import SideNavItem from "./ui/SideNavItem"
+import { useNavigate } from "react-router-dom"
+
 
 const SideNav = () => {
+    const navigate = useNavigate()
+
     return (
             <div className='hidden md:flex bg-gray-800 min-w-[250px] max-w-[250px] flex-col justify-between'>
 
@@ -19,7 +23,9 @@ const SideNav = () => {
                     </div>
                   </div>
 
-                  <SideNavItem icon={<AiOutlineHome size={30}/>} text='Home'/>
+                  <div onClick={() => navigate('/')}>
+                    <SideNavItem icon={<AiOutlineHome size={30}/>} text='Home'/>
+                  </div>
                   <SideNavItem icon={<AiOutlineSearch size={30}/>} text='Cerca'/>
                   <SideNavItem icon={<MdOutlineCategory size={30}/>} text='La tua libreria'/>
 
@@ -28,8 +34,11 @@ const SideNav = () => {
                 <div className="flex flex-col text-gray-300 text-sm font-semibold gap-2">
 
                     <SideNavItem icon={<AiOutlinePlusCircle size={30}/>} text='Crea playlist'/>
-                    <SideNavItem icon={<AiOutlineHeart size={30}/>} text='Brani che ti piacciono'/>
-                    
+
+                    <div onClick={() => navigate('/favorites')}>
+                      <SideNavItem icon={<AiOutlineHeart size={30}/>} text='Brani che ti piacciono'/>
+                    </div>
+                     
 
                 </div>
 
