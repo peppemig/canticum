@@ -9,7 +9,7 @@ const RowIntestation = () => {
                 #
             </div>
 
-            <div className="w-[40%] h-full items-center justify-start flex pl-2 gap-2">
+            <div className="w-[40%] h-full items-center justify-start flex pl-2 gap-2 font-bold">
                 TITOLO
             </div>
 

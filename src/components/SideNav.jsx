@@ -3,10 +3,24 @@ import {MdOutlineCategory} from "react-icons/md"
 import {ImMusic} from "react-icons/im"
 import SideNavItem from "./ui/SideNavItem"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
 
 const SideNav = () => {
     const navigate = useNavigate()
+    const [songToPlay, setSongToPlay] = useState({})
+
+    const currentSong = useSelector((state) => state.currentSong.currentSong)
+
+    useEffect(() => {
+      if (currentSong !== '') {
+        axios.get(`http://localhost:5000/api/song/${currentSong}`).then(response => {
+          setSongToPlay(response.data)
+        })
+      }
+    }, [currentSong])
 
     return (
             <div className='hidden md:flex bg-gray-800 min-w-[250px] max-w-[250px] flex-col justify-between'>
@@ -47,7 +61,9 @@ const SideNav = () => {
               </div>
 
               <div className="h-[250px] object-cover">
-                <img src="https://yt3.googleusercontent.com/bBqZBopwEt3yEnwcu3n5qAHFBPe_IUum-OHEy_8FVzyWRPX-vfJiCZ5jwZG1Kj6c8MGzqt7agw=s900-c-k-c0x00ffffff-no-rj"/>
+                {Object.keys(songToPlay).length > 0 &&
+                <img src={songToPlay.album.cover}/>
+                }
               </div>
 
             </div>

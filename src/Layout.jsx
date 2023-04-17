@@ -4,7 +4,7 @@ import {IoIosArrowDown} from "react-icons/io"
 
 const Layout = ({children}) => {
     return (
-        <div className='flex flex-col h-[100vh] overflow-hidden'>
+        <div className='flex flex-col h-[90vh] overflow-hidden'>
 
         <div className='w-screen flex-1 flex overflow-y-hidden'>
 
@@ -36,7 +36,7 @@ const Layout = ({children}) => {
         </div>
 
         {/* PLAYER */}
-        <Player/>
+
 
     </div>
     )

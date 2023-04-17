@@ -1,12 +1,34 @@
+import { useState } from "react"
 import {AiOutlineHeart} from "react-icons/ai"
+import {BsFillPlayFill} from "react-icons/bs"
+import { useDispatch } from "react-redux"
+import { addCurrentSong } from "../../redux/actions/currentSongActions"
 
 const SongRowItem = ({song, album, n}) => {
-    console.log(song)
+    const [isHovering, setIsHovering] = useState(false)
+    const dispatch = useDispatch()
+    const songId = song._id
+
+    const setCurrentSong = () => {
+        dispatch(addCurrentSong(songId))
+    }
+
+    const HandleMouseOver = () => {
+        setIsHovering(true)
+    }
+  
+    const HandleMouseOut = () => {
+        setIsHovering(false)
+    }
+
     return (
-        <a target="_blank" href={song?.link} className="h-[50px] w-full hover:bg-white/20 transition flex rounded-md overflow-hidden text-white">
+        <div onTouchEnd={setCurrentSong} onDoubleClick={setCurrentSong} onMouseOver={HandleMouseOver} onMouseOut={HandleMouseOut} target="_blank" href={song?.link} className="h-[50px] w-full hover:bg-white/20 transition flex rounded-md overflow-hidden text-white">
 
             <div className="w-[8%] h-full items-center justify-center flex font-semibold">
-                {n+1}
+                {isHovering ? 
+                <BsFillPlayFill onClick={setCurrentSong} size={25}/> 
+                : 
+                n+1}
             </div>
 
             <div className="w-[40%] max-w-[40%] h-full overflow-hidden items-center justify-start flex pl-2 gap-2">
@@ -31,7 +53,7 @@ const SongRowItem = ({song, album, n}) => {
                 {song.duration}
             </div>
 
-        </a>
+        </div>
     )
 }
 

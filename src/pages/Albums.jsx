@@ -9,7 +9,6 @@ const Albums = () => {
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/album').then(response => {
-            console.log(response.data)
             setAlbums(response.data)
         })
     }, [])
