@@ -1,8 +1,8 @@
 # Canticum
 🎵 Canticum is a digital music service that fetches songs from S3 buckets (the design is pretty similar to Spotify, I know)
 
-![canticum](https://user-images.githubusercontent.com/120139042/232338594-60178acb-6b59-4198-8fea-adc651e67fce.png)
+![canticumnew](https://user-images.githubusercontent.com/120139042/232475246-c4e39a6b-eec4-40a4-953f-d34232c0e10d.png)
 
-![albumcanticum](https://user-images.githubusercontent.com/120139042/232344027-dd26d070-091a-4c9a-bc58-119861d8ec79.png)
+![canticum](https://user-images.githubusercontent.com/120139042/232338594-60178acb-6b59-4198-8fea-adc651e67fce.png)
 
 
