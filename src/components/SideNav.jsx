@@ -27,7 +27,9 @@ const SideNav = () => {
                     <SideNavItem icon={<AiOutlineHome size={30}/>} text='Home'/>
                   </div>
                   <SideNavItem icon={<AiOutlineSearch size={30}/>} text='Cerca'/>
-                  <SideNavItem icon={<MdOutlineCategory size={30}/>} text='La tua libreria'/>
+                  <div onClick={() => navigate('/albums')}>
+                  <SideNavItem icon={<MdOutlineCategory size={30}/>} text='Albums'/>
+                  </div>
 
                 </div>
 
