@@ -60,7 +60,7 @@ const SideNav = () => {
 
               </div>
 
-              <div className="h-[250px] object-cover">
+              <div className="h-[250px] object-cover mb-24">
                 {Object.keys(songToPlay).length > 0 &&
                 <img src={songToPlay.album.cover}/>
                 }

@@ -22,7 +22,7 @@ const SongRowItem = ({song, album, n}) => {
     }
 
     return (
-        <div onTouchEnd={setCurrentSong} onDoubleClick={setCurrentSong} onMouseOver={HandleMouseOver} onMouseOut={HandleMouseOut} target="_blank" href={song?.link} className="h-[50px] w-full hover:bg-white/20 transition flex rounded-md overflow-hidden text-white">
+        <div onTouchEnd={setCurrentSong} onDoubleClick={setCurrentSong} onMouseOver={HandleMouseOver} onMouseOut={HandleMouseOut} target="_blank" href={song?.link} className="h-[50px] w-full hover:bg-white/20 transition flex rounded-md justify-between overflow-hidden text-white">
 
             <div className="w-[8%] h-full items-center justify-center flex font-semibold">
                 {isHovering ? 
@@ -41,7 +41,7 @@ const SongRowItem = ({song, album, n}) => {
                 </div>
             </div>
 
-            <div className="w-[30%] h-full items-center justify-start flex pl-2 font-bold">
+            <div className="hidden w-[30%] h-full items-center justify-start md:flex pl-2 font-bold">
                 {album.albumTitle}
             </div>
 

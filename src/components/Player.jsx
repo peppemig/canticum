@@ -42,7 +42,8 @@ const Player = () => {
     }
 
     return (
-        <div className='bg-gray-900 border-t-[1px] w-screen h-[10vh] text-white flex items-center justify-center md:justify-between p-3'>
+
+        <div className='backdrop-blur fixed bottom-20 md:bottom-0 bg-gray-300/30 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[65px] md:h-[10vh] text-white flex items-center justify-between md:p-3 pr-10'>
           
         <div className="hidden md:flex items-center gap-3 w-[215px]">
           
@@ -64,6 +65,12 @@ const Player = () => {
           </div>
 
         </div>
+        
+        {Object.keys(songToPlay).length > 0 &&
+        <div className="flex h-full md:hidden object-cover gap-2 overflow-hidden">
+          <img src={songToPlay.album.cover} alt=""/>
+        </div>
+        }
 
         <div className="flex flex-col gap-1 justify-center items-center">
 
@@ -112,6 +119,7 @@ const Player = () => {
         </div>
 
       </div>
+
     )
 }
 
