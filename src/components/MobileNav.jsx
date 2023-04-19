@@ -23,9 +23,9 @@ const MobileNav = () => {
                 <div className="font-semibold text-white">Albums</div>
             </div>
 
-            <div className="flex flex-col items-center justify-center">
+            <div onClick={() => navigate('/mobilePlayer/asd')} className="flex flex-col items-center justify-center">
                 <AiOutlineHeart size={25} color="white"/>
-                <div className="font-semibold text-white">Preferiti</div>
+                <div className="font-semibold text-white">In ascolto</div>
             </div>
 
         </div>
