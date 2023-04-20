@@ -40,11 +40,11 @@ const SongRowItem = ({song, album, n, favId, location}) => {
                 n+1}
             </div>
 
-            <div className="w-[40%] max-w-[40%] h-full overflow-hidden items-center justify-start flex pl-2 gap-2">
+            <div className="w-[40%] max-w-[40%] h-full items-center justify-start flex pl-2 gap-2">
                 <div className="h-[40px] w-[40px] min-w-[40px] bg-yellow-200 object-cover">
                     <img src={album.cover}/>
                 </div>
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col w-full overflow-hidden">
                     <div className="font-bold truncate">{song.title}</div>
                     <div className="text-sm">{album.artist}</div>
                 </div>
