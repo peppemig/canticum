@@ -9,7 +9,6 @@ import Albums from './pages/Albums';
 import Player from './components/Player';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import MobilePlayerPage from './pages/MobilePlayerPage';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
@@ -21,7 +20,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path='/favorites' element={<Favorites/>}/>
               <Route path='/albums' element={<Albums/>}/>
               <Route path='/album/:id' element={<Album/>}/>
-              <Route path='/mobilePlayer/:id' element={<MobilePlayerPage/>}/>
             </Routes>
           </BrowserRouter>
           <Player/>

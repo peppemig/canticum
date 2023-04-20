@@ -19,3 +19,54 @@ border-radius: 10px;
 background: #6f809b;
 border-radius: 10px;
 }
+
+.fadeIn {
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+.scaleIn {
+    animation: scaleIn 0.2s ease-in-out ;
+    -webkit-animation: scaleIn 0.2s ease-in-out ;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+/* SCALE */
+
+@keyframes scaleIn {
+0% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+}
+100% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+}
+}
