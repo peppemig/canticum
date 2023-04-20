@@ -2,8 +2,20 @@ import Layout from "../Layout"
 import {AiOutlineHeart} from "react-icons/ai"
 import SongRowItem from "../components/ui/SongRowItem"
 import RowIntestation from "../components/ui/RowIntestation"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { useLocation } from "react-router-dom"
 
 const Favorites = () => {
+    const [favs, setFavs] = useState([])
+    const {pathname} = useLocation()
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/fav').then(response => {
+            setFavs(response.data)
+        })
+    }, [])
+
     return (
         <Layout>
             <div className="bg-gray-800/50 h-[300px] w-full items-center flex p-5 gap-5">
@@ -24,25 +36,15 @@ const Favorites = () => {
 
             </div>
             
-            <div className="flex flex-col p-3 gap-3">
+            <div className="flex flex-col gap-3 pb-40">
                 
                 <RowIntestation/>
 
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
-                <SongRowItem/>
+                {favs.length > 0 && (
+                    favs.map((fav, index) => (
+                        <SongRowItem key={fav._id} favId={fav._id} location={pathname} song={fav.favSong} album={fav.album} n={index}/>
+                    ))
+                )}
 
 
             </div>

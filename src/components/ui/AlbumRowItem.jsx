@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom"
 
-const AlbumRowItem = ({id, albumTitle, artist, cover, songs, year}) => {
+const AlbumRowItem = ({id, albumTitle, artist, cover, songs, year, index}) => {
     const navigate = useNavigate()
 
     return (
         <div onClick={() => navigate(`/album/${id}`)} className="h-[50px] w-full hover:bg-white/20 transition flex rounded-md overflow-hidden text-white">
 
             <div className="w-[8%] h-full items-center justify-center flex font-semibold">
-                1
+                {index+1}
             </div>
 
             <div className="w-[40%] h-full items-center justify-start flex pl-2 gap-2">
@@ -27,7 +27,7 @@ const AlbumRowItem = ({id, albumTitle, artist, cover, songs, year}) => {
                 {year}
             </div>
 
-            <div className="w-[14%] h-full items-center justify-start flex pl-2 font-semibold">
+            <div className="w-[14%] h-full items-center justify-center flex pl-2 font-semibold">
                 {songs.length}
             </div>
 

@@ -4,7 +4,7 @@ import ContentRow from "../components/ContentRow"
 const Home = () => {
     return (
         <Layout>
-            <div className="flex flex-col gap-4 px-5 pt-20 pb-5">
+            <div className="flex flex-col gap-4 px-5 pt-20 pb-44">
                 <ContentRow/>
                 <ContentRow/>
                 <ContentRow/>

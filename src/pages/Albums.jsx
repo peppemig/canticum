@@ -35,8 +35,9 @@ const Albums = () => {
                 <RowIntestationAlbum/>
 
                 {albums.length > 0 && (
-                    albums.map(album => (
-                        <AlbumRowItem 
+                    albums.map((album, index) => (
+                        <AlbumRowItem
+                            index={index} 
                             key={album._id}
                             id={album._id}
                             albumTitle={album.albumTitle} 

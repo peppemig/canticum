@@ -5,24 +5,24 @@ const RowIntestationAlbum = () => {
         <>
         <div className="h-[50px] w-full flex rounded-md overflow-hidden text-white">
 
-            <div className="w-[8%] h-full items-center justify-center flex text-white font-semibold">
+            <div className="text-sm w-[8%] h-full items-center justify-center flex text-white font-semibold">
                 #
             </div>
 
-            <div className="w-[40%] h-full items-center justify-start flex pl-2 gap-2 font-bold">
+            <div className="text-sm w-[40%] h-full items-center justify-start flex pl-2 gap-2 font-bold">
                 TITOLO
             </div>
 
-            <div className="w-[30%] h-full items-center justify-start flex pl-2 font-bold">
+            <div className="text-sm w-[30%] h-full items-center justify-start flex pl-2 font-bold">
                 ARTISTA
             </div>
 
-            <div className="w-[8%] h-full items-center justify-start flex font-bold">
+            <div className="text-sm w-[8%] h-full items-center justify-start flex font-bold">
                 ANNO
             </div>
 
-            <div className="w-[14%] h-full items-center justify-start flex pl-2 font-semibold">
-                # BRANI
+            <div className="text-sm w-[14%] h-full items-center justify-center flex pl-2 font-semibold">
+                BRANI
             </div>
 
         </div>

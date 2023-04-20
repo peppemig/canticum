@@ -1,10 +1,11 @@
 import { useState } from "react"
-import {AiOutlineHeart} from "react-icons/ai"
+import {AiOutlineHeart, AiOutlineCloseCircle} from "react-icons/ai"
 import {BsFillPlayFill} from "react-icons/bs"
 import { useDispatch } from "react-redux"
 import { addCurrentSong } from "../../redux/actions/currentSongActions"
+import axios from "axios"
 
-const SongRowItem = ({song, album, n}) => {
+const SongRowItem = ({song, album, n, favId, location}) => {
     const [isHovering, setIsHovering] = useState(false)
     const dispatch = useDispatch()
     const songId = song._id
@@ -19,6 +20,14 @@ const SongRowItem = ({song, album, n}) => {
   
     const HandleMouseOut = () => {
         setIsHovering(false)
+    }
+
+    const saveFav = () => {
+        axios.post('http://localhost:5000/api/fav', {favSong: song._id, album: album._id}).then(response => console.log(response))
+    }
+
+    const deleteFav = () => {
+        axios.delete(`http://localhost:5000/api/fav/${favId}`).then(response => console.log(response))
     }
 
     return (
@@ -45,8 +54,8 @@ const SongRowItem = ({song, album, n}) => {
                 {album.albumTitle}
             </div>
 
-            <div className="w-[8%] h-full items-center justify-center flex">
-                <AiOutlineHeart size={24} color="white"/>
+            <div onClick={location === '/favorites' ? () => deleteFav() : () => saveFav()} className="w-[8%] h-full items-center justify-center flex">
+                {location === '/favorites' ? <AiOutlineCloseCircle size={24} color="white"/> : <AiOutlineHeart size={24} color="white"/>}
             </div>
 
             <div className="w-[14%] h-full items-center justify-start flex pl-2 font-semibold">

@@ -42,9 +42,9 @@ const Player = () => {
       }
     }
 
-    const fullScreenClasses = "scaleIn overflow-x-hidden overflow-y-auto gap-5 backdrop-blur flex-col fixed bottom-0 md:bottom-0 bg-black/70 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[100vh] md:h-[10vh] text-white flex items-center justify-center md:p-3"
+    const fullScreenClasses = "scaleIn overflow-x-hidden overflow-y-auto gap-14 backdrop-blur flex-col fixed bottom-0 md:bottom-0 bg-black/70 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[100vh] md:h-[10vh] text-white flex items-center justify-center md:p-3"
 
-    const classes = "backdrop-blur fixed bottom-20 md:bottom-0 bg-gray-300/30 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[65px] md:h-[10vh] text-white flex items-center justify-between md:p-3 pr-10"
+    const classes = "backdrop-blur fixed bottom-20 md:bottom-0 bg-gray-300/30 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[65px] md:h-[10vh] text-white flex items-center justify-center md:justify-between md:p-3"
 
     return (
       <div>
@@ -153,13 +153,13 @@ const Player = () => {
 
 
           {Object.keys(songToPlay).length > 0 &&
-          <div onClick={() => setFullScreen(true)} className="flex h-full md:hidden object-cover gap-2 overflow-hidden">
+          <div onClick={() => setFullScreen(true)} className="flex h-full md:hidden fixed left-0 object-cover gap-2 overflow-hidden">
             <img src={songToPlay.album.cover} alt=""/>
           </div>
           }
 
 
-        <div className="flex flex-col gap-1 justify-center items-center pr-10">
+        <div className="flex flex-col gap-1 justify-center items-center">
 
 
           <audio ref={audioElem} src={songToPlay.link}/>

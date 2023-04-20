@@ -1,4 +1,4 @@
-import {AiOutlineSearch, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
+import {AiOutlineSearch, AiOutlineDownCircle, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
 import {MdOutlineCategory} from "react-icons/md" 
 import {ImMusic} from "react-icons/im"
 import SideNavItem from "./ui/SideNavItem"
@@ -11,6 +11,7 @@ import axios from "axios"
 const SideNav = () => {
     const navigate = useNavigate()
     const [songToPlay, setSongToPlay] = useState({})
+    const [hoverOnCover, setHoverOnCover] = useState(false)
 
     const currentSong = useSelector((state) => state.currentSong.currentSong)
 
@@ -21,6 +22,14 @@ const SideNav = () => {
         })
       }
     }, [currentSong])
+
+    const handleHoverIn = () => {
+      setHoverOnCover(true)
+    }
+
+    const handleHoverOut = () => {
+      setHoverOnCover(false)
+    }
 
     return (
             <div className='hidden md:flex bg-gray-800 min-w-[250px] max-w-[250px] flex-col justify-between'>
@@ -60,9 +69,12 @@ const SideNav = () => {
 
               </div>
 
-              <div className="h-[250px] object-cover mb-24">
+              <div onMouseOver={handleHoverIn} onMouseOut={handleHoverOut} className="h-[250px] relative object-cover mb-24">
                 {Object.keys(songToPlay).length > 0 &&
+                <>
+                {hoverOnCover && <AiOutlineDownCircle size={30} color="white" className="fadeIn absolute top-1 right-2 bg-black/50 rounded-full cursor-pointer"/>}
                 <img src={songToPlay.album.cover}/>
+                </>
                 }
               </div>
 
