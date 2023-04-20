@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import mongoose from "mongoose"
 import albumRoute from "./routes/album.js"
 import songRoute from "./routes/song.js"
+import favoriteRouter from "./routes/favorite.js"
 
 const app = express()
 dotenv.config()
@@ -24,6 +25,7 @@ const connect = async () => {
 // ROUTES
 app.use("/api/album", albumRoute)
 app.use("/api/song", songRoute)
+app.use("/api/fav", favoriteRouter)
 
 // TEST
 app.get("/hello", (req,res) => {
