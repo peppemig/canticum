@@ -1,5 +1,5 @@
 import express from "express"
-import { getAllAlbums, getAlbumById, createAlbum } from "../controllers/album.js"
+import { getAllAlbums, getAlbumById, createAlbum, updateSongsInAlbum } from "../controllers/album.js"
 
 const router = express.Router()
 
@@ -11,5 +11,8 @@ router.get("/", getAllAlbums)
 
 //GET BY ID
 router.get("/:id", getAlbumById)
+
+//UPDATE SONGS IN ALBUM BY ID
+router.put("/:id", updateSongsInAlbum)
 
 export default router

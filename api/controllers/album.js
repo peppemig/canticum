@@ -30,3 +30,15 @@ export const createAlbum = async (req,res) => {
         res.status(400).json(error)
     }
 }
+
+export const updateSongsInAlbum = async (req,res) => {
+    const {id} = req.params
+    const {songId} = req.body
+
+    try {
+        const updatedAlbum = await Album.findOneAndUpdate({_id: id}, { $push: {songs: songId }})
+        res.status(200).json(updatedAlbum)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
