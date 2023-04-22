@@ -79,8 +79,8 @@ const Player = () => {
 
         <div className="flex items-center justify-center">
           {Object.keys(songToPlay).length > 0 &&
-          <div onClick={() => setFullScreen(true)} className="flex w-[80%] items-center justify-center h-auto md:hidden object-cover gap-2 overflow-hidden">
-            <img src={songToPlay.album.cover} alt=""/>
+          <div className="bg-red-500 max-w-[300px] w-[300px] max-h-[300px] h-[300px]">
+            <img src={songToPlay.album.cover} alt="" />
           </div>
           }
         </div>
