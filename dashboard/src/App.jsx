@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import StartPage from "./components/StartPage"
 import AlbumPage from "./components/AlbumPage"
 import SongsPage from "./components/SongsPage"
@@ -38,9 +38,8 @@ function App() {
   }
 
   return (
-    <div className="h-screen flex bg-gray-900 items-center justify-center">
+    <div className="flex bg-gray-900 items-center justify-center py-2 min-h-screen">
 
-      <div className="fixed top-10 text-white font-bold text-4xl">Canticum.</div>
 
         {
           page === 0 ? <StartPage next={() => setPage(page+1)}/> : 

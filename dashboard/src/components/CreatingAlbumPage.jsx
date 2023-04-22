@@ -3,25 +3,15 @@ import { BounceLoader } from "react-spinners"
 import axios from "axios"
 
 const CreatingAlbumPage = ({songsArray, title, artist, year, coverLink}) => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(null)
     let albumIdToUpload = '';
     let songsIdToUpload = [];
 
-    console.log(songsArray)
-
     const uploadAlbumAndSongs = async () => {
         setLoading(true)
-
         await uploadAlbum()
-
-        //console.log(albumIdToUpload)
-
         await uploadSongs()
-
-        //console.log(songsIdToUpload)
-
         await setSongsInAlbum()
-
         setLoading(false)
     }
 
@@ -31,33 +21,59 @@ const CreatingAlbumPage = ({songsArray, title, artist, year, coverLink}) => {
     }
     
     const uploadSongs = async () => {
-        const uploadedSong = await axios.post('http://localhost:5000/api/song', {title: songsArray[0].title, duration: songsArray[0].duration, album: albumIdToUpload, link: 'empty'})
-        songsIdToUpload.push(uploadedSong.data._id)
-        //const reqs = songsArray.map((song) => axios.post('http://localhost:5000/api/song', {title: song.title, duration: song.duration, album: albumIdToUpload, link: 'empty'}))
-        //axios.all(reqs).then((responses) => {
-        //    responses.forEach((resp) => {
-        //        songsIdToUpload.push(resp.data._id)
-        //    })
-        //})
+
+        for (const singleSong of songsArray) {
+            try {
+                const response = await axios.post('http://localhost:5000/api/song', {title: singleSong.title, duration: singleSong.duration, album: albumIdToUpload, link: 'empty'})
+                songsIdToUpload.push(response.data._id)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
     }
 
     const setSongsInAlbum = async () => {
-        console.log('STO SETTANDO LE CANZONI')
-        console.log(songsIdToUpload)
-        console.log('STO MAPPANDO')
-        const updatedAlbumWithSong = await axios.put(`http://localhost:5000/api/album/${albumIdToUpload}`, {songId: songsIdToUpload[0]})
-        console.log('UPDATED ALBUM!!! ', updatedAlbumWithSong)
+
+        for (const singleSongId of songsIdToUpload) {
+            try {
+               const response = await axios.put(`http://localhost:5000/api/album/${albumIdToUpload}`, {songId: singleSongId})
+               console.log(response)
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
 
 
     
   return (
     
-    <div className="scaleIn bg-gray-700 h-[500px] min-w-[380px] flex items-center justify-center rounded-lg flex-col p-3 gap-8">
+    <div className="scaleIn bg-gray-700 h-auto min-w-[380px] flex items-center justify-center rounded-lg flex-col p-3 gap-8">
 
-        <div onClick={() => uploadAlbumAndSongs()}>UPLOAD</div>
 
-        {loading ? <BounceLoader/> : <div className="text-white font-bold text-xl">ALBUM CARICATO</div>}
+        <div className="flex flex-col items-center justify-center gap-4">
+
+            <div className="flex flex-col items-center text-white">
+                <div className="font-semibold text-xl mb-3">ALBUM RECAP</div>
+                <div className="font-bold text-xl">TITOLO: {title}</div>
+                <div className="font-bold text-xl">ARTISTA: {artist}</div>
+            </div>
+
+            <div className="bg-red-500 max-w-[300px] w-[300px] max-h-[300px] h-[300px]">
+                <img src={coverLink} alt="" />
+            </div>
+
+            <div className="text-white font-semibold text-lg">N. BRANI: {songsArray.length}</div>
+            <div className="flex flex-col gap-1 items-center border-[1px] w-full p-2 rounded-md">
+                {songsArray.map((song,index) => (
+                    <div className="text-white text-lg font-semibold" key={index}>{index+1}. {song.title}</div>
+                ))}
+            </div>
+        </div>
+
+        <div className="bg-gray-900 text-white font-bold px-3 py-2 rounded-lg hover:text-gray-900 hover:bg-white transition cursor-pointer" onClick={() => uploadAlbumAndSongs()}>CARICA LA TUA MUSICA!</div>
+        {loading ? <BounceLoader/> : ""}
 
     </div>
   )

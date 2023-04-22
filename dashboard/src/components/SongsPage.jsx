@@ -47,7 +47,7 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
 
 
             <div onClick={handleSubmit} className="cursor-pointer bg-white text-black flex items-center justify-center py-2 rounded-full font-bold">
-                SUBMIT
+                CHECKOUT
             </div>
             
         </div>
