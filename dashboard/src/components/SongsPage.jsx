@@ -1,16 +1,43 @@
+import { useEffect, useState } from "react"
 import { MdNavigateBefore } from "react-icons/md"
 
 const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
-    const arr = Array.from(Array(parseInt(songsNumber)).keys())
+    //const arr = Array.from(Array(parseInt(songsNumber)).keys())
+    const activeButton = "cursor-pointer bg-white text-black flex items-center justify-center py-2 rounded-full font-bold"
+    const disabledButton = "bg-gray-300 text-white flex items-center justify-center py-2 rounded-full font-bold cursor-not-allowed pointer-events-none"
+    const [checkoutButtonClasses, setCheckoutButtonClasses] = useState(disabledButton)
+    const [arr,setArr] = useState(Array.from(Array(parseInt(songsNumber)).keys()))
 
     const setArrItem = (index, title) => {
-        arr[index] = {title: title, duration: '4:20'}
+        let newArr = [...arr]
+        newArr[index] = {title: title, duration: '4:20'}
+        setArr(newArr)
     }
 
     const handleSubmit = () => {
         handleSongsArray(arr);
         submit();
     }
+
+    useEffect(() => {
+        let conditionArr = []
+
+        arr.map(item => {
+            if (item.title !== undefined && item.title !== '') {
+                conditionArr.push(item)
+            }
+        })
+
+        if(conditionArr.length === parseInt(songsNumber)) {
+            console.log("BUTTON WILL BE ENABLED")
+            setCheckoutButtonClasses(activeButton)
+        } else {
+            console.log("BUTTON WILL BE DISABLED")
+            setCheckoutButtonClasses(disabledButton)
+        }
+
+    }, [arr, songsNumber])
+
 
 
   return (
@@ -46,7 +73,7 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
 
 
 
-            <div onClick={handleSubmit} className="cursor-pointer bg-white text-black flex items-center justify-center py-2 rounded-full font-bold">
+            <div onClick={handleSubmit} className={checkoutButtonClasses}>
                 CHECKOUT
             </div>
             

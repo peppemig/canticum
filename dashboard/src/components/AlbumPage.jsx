@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import axios from "axios";
 import {BarLoader} from "react-spinners"
@@ -18,9 +18,14 @@ const AlbumPage = ({
   handleCoverLink,
 }) => {
 
+  const activeButtonClasses = "bg-gray-900 hover:bg-white hover:text-gray-900 transition cursor-pointer text-white pl-5 pr-2 py-2 rounded-lg font-semibold flex items-center"
+  const disabledButtonClasses = "bg-gray-400 cursor-not-allowed pointer-events-none text-white pl-5 pr-2 py-2 rounded-lg font-semibold flex items-center"
   const validFileTypes = ["image/jpg", "image/jpeg", "image/png"];
   const [imageFormatError, setImageFormatError] = useState('')
   const [imageUploadStatus, setImageUploadStatus] = useState({isLoading: false, error: ''})
+  const [nextButtonClasses, setNextButtonClasses] = useState(disabledButtonClasses)
+
+
 
   const handleUpload = async (file) => {
     const fileToUpload = file[0];
@@ -45,6 +50,22 @@ const AlbumPage = ({
     }
 
   };
+
+  useEffect(() => {
+    if (title === '' || artist === ''|| songsNumber === '' || year === '' || coverLink === '') {
+      setNextButtonClasses(disabledButtonClasses)
+    } else {
+      setNextButtonClasses(activeButtonClasses)
+    }
+  }, [title, artist, songsNumber, year, coverLink])
+
+  const handleSubmit = () => {
+    if (title !== '' && artist !== '' && songsNumber !== '' && year !== '' && coverLink !== '') {
+      next()
+    } else {
+      console.log('SOMETHING IS MISSING')
+    }
+  }
 
 
   return (
@@ -150,8 +171,8 @@ const AlbumPage = ({
         </div>
 
         <div
-          onClick={next}
-          className="bg-gray-900 hover:bg-white hover:text-gray-900 transition cursor-pointer text-white pl-5 pr-2 py-2 rounded-lg font-semibold flex items-center"
+          onClick={() => handleSubmit()}
+          className={nextButtonClasses}
         >
           <div className="font-semibold">Continua</div>
           <MdNavigateNext size={30} />
