@@ -38,7 +38,7 @@ const AlbumPage = ({
         
         setImageUploadStatus(prev => ({...prev, isLoading: true}))
 
-        axios.post('http://localhost:5000/api/images', form).then((res) => {
+        axios.post('http://localhost:5000/api/upload/images', form).then((res) => {
             setImageUploadStatus({isLoading: false, error: ''})
             handleCoverLink(res.data[0])
         }).catch(err => {
@@ -128,20 +128,7 @@ const AlbumPage = ({
           />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-white font-semibold">Copertina</label>
-          <input
-            //value={coverLink}
-            //onChange={(e) => handleCoverLink(e.target.value)}
-            type="text"
-            name="copertina"
-            id="copertina"
-            placeholder="Link copertina"
-            className="py-2 px-3 rounded-md border-none"
-          />
-        </div>
-
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 items-center justify-center">
           <label className="text-white font-semibold">Carica copertina</label>
           <input
             onChange={(e) => handleUpload(e.target.files)}
@@ -156,6 +143,11 @@ const AlbumPage = ({
             <div className="flex flex-col items-center text-center justify-center text-white font-semibold">
             <div>CARICAMENTO IN CORSO...</div>
             <BarLoader color="#ffffff"/>
+            </div>
+          )}
+          {coverLink !== '' && (
+            <div className="flex rounded-md overflow-hidden mt-2 max-w-[300px] w-[300px] max-h-[300px] h-[300px]">
+              <img src={coverLink} alt="" />
             </div>
           )}
         </div>
