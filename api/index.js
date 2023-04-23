@@ -6,6 +6,7 @@ import albumRoute from "./routes/album.js"
 import songRoute from "./routes/song.js"
 import favoriteRoute from "./routes/favorite.js"
 import imagesRoute from "./routes/images.js"
+import songsRoute from "./routes/songs.js"
 
 const app = express()
 dotenv.config()
@@ -27,7 +28,8 @@ const connect = async () => {
 app.use("/api/album", albumRoute)
 app.use("/api/song", songRoute)
 app.use("/api/fav", favoriteRoute)
-app.use("/api/images", imagesRoute)
+app.use("/api/upload/images", imagesRoute)
+app.use("/api/upload/songs", songsRoute)
 
 // TEST
 app.get("/hello", (req,res) => {

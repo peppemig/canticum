@@ -12,12 +12,12 @@ const client = new S3Client({
     }
 })
 
-export const uploadImage = async (req,res) => {
+export const uploadSong = async (req,res) => {
     const links = []
     const {file} = req
 
     const ext = file.originalname.split('.')[1]
-    const newFileName = "AlbumCover" + Date.now() + '.' + ext
+    const newFileName = "Song" + Date.now() + '.' + ext
 
     await client.send(new PutObjectCommand({
         Bucket: bucketName,
