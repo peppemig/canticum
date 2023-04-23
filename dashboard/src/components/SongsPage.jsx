@@ -17,7 +17,7 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
 
     const setArrItem = (index, title) => {
         let newArr = [...arr]
-        newArr[index] = {title: title, duration: '4:20'}
+        newArr[index] = {title: title, duration: '', link: ''}
         setArr(newArr)
     }
 
@@ -30,7 +30,7 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
         let conditionArr = []
 
         arr.map(item => {
-            if (item.title !== undefined && item.title !== '') {
+            if (item.title !== undefined && item.title !== '' && item.link !== undefined && item.link !== '' && item.duration !== undefined && item.duration !== '') {
                 conditionArr.push(item)
             }
         })
@@ -43,7 +43,7 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
 
     }, [arr, songsNumber])
 
-    const handleUpload = (file) => {
+    const handleUpload = (index, file) => {
         const fileToUpload = file[0]
 
         if (validFileTypes.includes(fileToUpload.type)) {
@@ -54,15 +54,33 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
 
             setSongUploadStatus(prev => ({...prev, isLoading: true}))
 
-            axios.post('http://localhost:5000/api/upload/songs', form).then((res) => {
+            axios.post('http://localhost:5000/api/upload/songs/duration', form).then((res) => {
+                let newArr = [...arr]
+                newArr[index].duration = res.data
+                setArr(newArr)
+            }).catch(err => {
+                console.log(err)
+            })
+
+            axios.post('http://localhost:5000/api/upload/songs/', form).then((res) => {
+                let newArr = [...arr]
+                newArr[index].link = res.data[0]
+                setArr(newArr)
                 setSongUploadStatus({isLoading: false, error: ''})
             }).catch(err => {
                 setSongUploadStatus({isLoading: false, error: err})
             })
+
         } else {
             setSongFormatError("Formato canzone non corretto! Formati supportati: mp3")
         }
     }
+
+    useEffect(() => {
+        console.log(arr)
+    }, [arr])
+    
+    
 
   return (
     <div className="scaleIn bg-gray-700 min-h-[500px] min-w-[380px] flex items-center justify-center rounded-lg flex-col p-3 gap-8">
@@ -81,7 +99,7 @@ const SongsPage = ({prev, songsNumber, handleSongsArray, submit}) => {
                     <div key={index} className="flex flex-col gap-1 px-3">
                         <label className="text-white font-semibold">Titolo brano n. {index+1}</label>
                         <input onChange={(e) => setArrItem(index, e.target.value)} type="text" name="titolo" id="titolo" placeholder="Titolo" className="py-2 px-3 rounded-md border-none" />
-                        <input onChange={(e) => handleUpload(e.target.files)} type="file" className={songUploadStatus.isLoading ? inputClassesDisabled : inputClassesEnabled}/>
+                        <input onChange={(e) => handleUpload(index, e.target.files)} type="file" className={songUploadStatus.isLoading ? inputClassesDisabled : inputClassesEnabled}/>
                     </div>
                 ))
             )}

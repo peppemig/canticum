@@ -24,7 +24,7 @@ const CreatingAlbumPage = ({songsArray, title, artist, year, coverLink}) => {
 
         for (const singleSong of songsArray) {
             try {
-                const response = await axios.post('http://localhost:5000/api/song', {title: singleSong.title, duration: singleSong.duration, album: albumIdToUpload, link: 'empty'})
+                const response = await axios.post('http://localhost:5000/api/song', {title: singleSong.title, duration: singleSong.duration, album: albumIdToUpload, link: singleSong.link})
                 songsIdToUpload.push(response.data._id)
             } catch (error) {
                 console.error(error)
