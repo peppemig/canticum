@@ -12,14 +12,20 @@ export const createFavorite = async (req,res) => {
     try {
         const {favSong, album} = req.body
 
-        const newFav = new Favorite({
-            createdAt: genDate(),
-            album: album,
-            favSong: favSong
-        })
+        const alreadyFav = await Favorite.find({favSong: favSong, album: album})
 
-        const savedNewFav = await newFav.save()
-        res.status(200).json(savedNewFav)
+        if (alreadyFav.length === 0) {
+            const newFav = new Favorite({
+                createdAt: genDate(),
+                album: album,
+                favSong: favSong
+            })
+    
+            const savedNewFav = await newFav.save()
+            res.status(200).json(savedNewFav)
+        } else {
+            res.status(409).json("Brano già presente nei preferiti")
+        }
 
     } catch (error) {
         res.status(400).json(error)
