@@ -10,12 +10,12 @@ const AlbumRowItem = ({id, albumTitle, artist, cover, songs, year, index}) => {
                 {index+1}
             </div>
 
-            <div className="w-[40%] h-full items-center justify-start flex pl-2 gap-2">
-                <div className="h-[40px] w-[40px] bg-yellow-200 object-cover">
+            <div className="w-[40%] max-w-[40%] h-full items-center justify-start flex pl-2 gap-2">
+                <div className="min-w-[40px] w-[40px] min-h-[40px] h-[40px]">
                     <img src={cover}/>
                 </div>
-                <div className="flex flex-col">
-                    <div className="font-bold">{albumTitle}</div>
+                <div className="flex flex-col w-full overflow-hidden">
+                    <div className="font-bold truncate">{albumTitle}</div>
                 </div>
             </div>
 

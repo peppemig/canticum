@@ -30,7 +30,7 @@ const Albums = () => {
             
             </div>
 
-                <div className="flex flex-col p-3 gap-3">
+                <div className="flex flex-col p-3 gap-3 pb-40">
                 
                 <RowIntestationAlbum/>
 

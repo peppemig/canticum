@@ -4,8 +4,9 @@ import {BsFillPlayFill} from "react-icons/bs"
 import { useDispatch } from "react-redux"
 import { addCurrentSong } from "../../redux/actions/currentSongActions"
 import axios from "axios"
+import { toast } from "react-hot-toast"
 
-const SongRowItem = ({song, album, n, favId, location}) => {
+const SongRowItem = ({favs, setFavs, song, album, n, favId, location}) => {
     const [isHovering, setIsHovering] = useState(false)
     const dispatch = useDispatch()
     const songId = song._id
@@ -23,11 +24,30 @@ const SongRowItem = ({song, album, n, favId, location}) => {
     }
 
     const saveFav = () => {
-        axios.post('http://localhost:5000/api/fav', {favSong: song._id, album: album._id}).then(response => console.log(response))
+        axios.post('http://localhost:5000/api/fav', {favSong: song._id, album: album._id})
+        .then(response => {
+            if(response.status === 200){
+                toast.success("Brano aggiunto ai preferiti")
+            }
+        })
+        .catch((error) => {
+            if(error.response.status === 409){
+                toast.error(error.response.data)
+            }
+        })
     }
 
-    const deleteFav = () => {
-        axios.delete(`http://localhost:5000/api/fav/${favId}`).then(response => console.log(response))
+    const deleteFav = async () => {
+        
+        await axios.delete(`http://localhost:5000/api/fav/${favId}`)
+        .then(res => {
+            if(res.status === 200){
+                toast.success("Brano eliminato dai preferiti")
+            }
+        })
+
+        await axios.get('http://localhost:5000/api/fav')
+        .then(res => setFavs(res.data))
     }
 
     return (
@@ -41,7 +61,7 @@ const SongRowItem = ({song, album, n, favId, location}) => {
             </div>
 
             <div className="w-[40%] max-w-[40%] h-full items-center justify-start flex pl-2 gap-2">
-                <div className="h-[40px] w-[40px] min-w-[40px] bg-yellow-200 object-cover">
+                <div className="min-w-[40px] w-[40px] min-h-[40px] h-[40px]">
                     <img src={album.cover}/>
                 </div>
                 <div className="flex flex-col w-full overflow-hidden">

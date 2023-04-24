@@ -7,10 +7,12 @@ import Albums from './pages/Albums';
 import Player from './components/Player';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { Toaster } from "react-hot-toast"
 
 const App = () => {
     return (
       <Provider store={store}>
+        <Toaster/>
         <BrowserRouter>
             <Routes>
               <Route path='/' element={<Home/>}/>
@@ -18,8 +20,8 @@ const App = () => {
               <Route path='/albums' element={<Albums/>}/>
               <Route path='/album/:id' element={<Album/>}/>
             </Routes>
-          </BrowserRouter>
-          <Player/>
+        </BrowserRouter>
+        <Player/>
       </Provider>
     )
 }

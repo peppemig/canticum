@@ -16,6 +16,9 @@ const Favorites = () => {
         })
     }, [])
 
+    useEffect(() => {
+    }, [favs])
+
     return (
         <Layout>
             <div className="bg-gray-800/50 h-[300px] w-full items-center flex p-5 gap-5">
@@ -42,7 +45,7 @@ const Favorites = () => {
 
                 {favs.length > 0 && (
                     favs.map((fav, index) => (
-                        <SongRowItem key={fav._id} favId={fav._id} location={pathname} song={fav.favSong} album={fav.album} n={index}/>
+                        <SongRowItem favs={favs} setFavs={setFavs} key={fav._id} favId={fav._id} location={pathname} song={fav.favSong} album={fav.album} n={index}/>
                     ))
                 )}
 
