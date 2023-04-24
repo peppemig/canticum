@@ -1,6 +1,6 @@
-const SideNavItem = ({icon, text}) => {
+const SideNavItem = ({icon, text, onClick}) => {
     return (
-        <div className="flex gap-2 items-center cursor-pointer hover:text-white transition">
+        <div onClick={onClick} className="flex gap-2 items-center cursor-pointer hover:text-white transition">
         {icon}
         <div>{text}</div>
       </div>

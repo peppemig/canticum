@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {AiOutlineHeart, AiOutlineCloseCircle} from "react-icons/ai"
+import {AiOutlineHeart, AiOutlineCloseCircle, AiFillHeart, AiFillCloseCircle} from "react-icons/ai"
 import {BsFillPlayFill} from "react-icons/bs"
 import { useDispatch } from "react-redux"
 import { addCurrentSong } from "../../redux/actions/currentSongActions"
@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast"
 
 const SongRowItem = ({favs, setFavs, song, album, n, favId, location}) => {
     const [isHovering, setIsHovering] = useState(false)
+    const [hoverOnFav, setHoverOnFav] = useState(false)
     const dispatch = useDispatch()
     const songId = song._id
 
@@ -21,6 +22,14 @@ const SongRowItem = ({favs, setFavs, song, album, n, favId, location}) => {
   
     const HandleMouseOut = () => {
         setIsHovering(false)
+    }
+
+    const HandleFavMouseOver = () => {
+        setHoverOnFav(true)
+    }
+
+    const HandleFavMouseOut = () => {
+        setHoverOnFav(false)
     }
 
     const saveFav = () => {
@@ -74,8 +83,11 @@ const SongRowItem = ({favs, setFavs, song, album, n, favId, location}) => {
                 {album.albumTitle}
             </div>
 
-            <div onClick={location === '/favorites' ? () => deleteFav() : () => saveFav()} className="w-[8%] h-full items-center justify-center flex">
-                {location === '/favorites' ? <AiOutlineCloseCircle size={24} color="white"/> : <AiOutlineHeart size={24} color="white"/>}
+            <div onMouseOver={HandleFavMouseOver} onMouseOut={HandleFavMouseOut} onClick={location === '/favorites' ? () => deleteFav() : () => saveFav()} className="w-[8%] h-full items-center justify-center flex">
+                {location === '/favorites' ? 
+                    (hoverOnFav ? <AiFillCloseCircle size={24} color="white" className="cursor-pointer"/> : <AiOutlineCloseCircle size={24} color="white" className="cursor-pointer"/>) : 
+                    (hoverOnFav ? <AiFillHeart size={24} color="white" className="cursor-pointer"/>  : <AiOutlineHeart size={24} color="white" className="cursor-pointer"/>)
+                }
             </div>
 
             <div className="w-[14%] h-full items-center justify-start flex pl-2 font-semibold">
