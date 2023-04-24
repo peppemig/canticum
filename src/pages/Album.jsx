@@ -8,12 +8,17 @@ import axios from "axios"
 const Album = () => {
     const {id} = useParams()
     const [album, setAlbum] = useState({})
+    const [playlists, setPlaylists] = useState([])
     
     useEffect(() => {
         axios.get(`http://localhost:5000/api/album/${id}`).then(response => {
             setAlbum(response.data)
         })
     }, [])
+
+        useEffect(() => {
+        axios.get('http://localhost:5000/api/playlist').then(res => setPlaylists(res.data))
+      }, [])
 
     return (
         
@@ -51,7 +56,7 @@ const Album = () => {
                 <RowIntestation/>
 
                 {album.songs.length > 0 && album.songs.map((song, index) => (
-                    <SongRowItem key={song._id} song={song} album={album} n={index}/>
+                    <SongRowItem playlists={playlists} key={song._id} song={song} album={album} n={index}/>
                 ))
                 }
 

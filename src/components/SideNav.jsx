@@ -1,4 +1,4 @@
-import {AiOutlineSearch, AiOutlineDownCircle, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
+import {AiOutlineSearch, AiOutlineDownCircle, AiFillDelete, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
 import {MdOutlineCategory} from "react-icons/md"
 import {RiPlayList2Fill} from "react-icons/ri" 
 import {ImMusic} from "react-icons/im"
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import PlaylistSideNavItem from "./ui/PlaylistSideNavItem"
 
 
 const SideNav = () => {
@@ -29,7 +30,7 @@ const SideNav = () => {
 
     useEffect(() => {
       axios.get('http://localhost:5000/api/playlist').then(res => setPlaylists(res.data))
-    }, [])
+    }, [setPlaylists])
 
     const handleHoverIn = () => {
       setHoverOnCover(true)
@@ -39,9 +40,10 @@ const SideNav = () => {
       setHoverOnCover(false)
     }
 
-    const handleCreatePlaylist = () => {
-      axios.post('http://localhost:5000/api/playlist', {playlistTitle: playlistTitle}).then(res => console.log(res))
+    const handleCreatePlaylist = async () => {
+      await axios.post('http://localhost:5000/api/playlist', {playlistTitle: playlistTitle}).then(res => console.log(res))
       setShowCreatePlaylist(!showCreatePlaylist)
+      await axios.get('http://localhost:5000/api/playlist').then(res => setPlaylists(res.data))
     }
 
     return (
@@ -78,7 +80,7 @@ const SideNav = () => {
                     <div className="relative flex mb-3">
                     <SideNavItem onClick={() => setShowCreatePlaylist(!showCreatePlaylist)} icon={<AiOutlinePlusCircle size={30}/>} text='Crea playlist'/>
                       {showCreatePlaylist &&
-                      <div className="fadeIn absolute flex p-3 gap-2 items-center justify-center flex-col bg-gray-900 border-[1px] border-white w-auto left-32 rounded-md">
+                      <div className="z-10 fadeIn absolute flex p-3 gap-2 items-center justify-center flex-col bg-gray-900 border-[1px] border-white w-auto left-32 rounded-md">
                         <div className="text-white">Nome playlist</div>
                         <input value={playlistTitle} onChange={(e) => setPlaylistTitle(e.target.value)} type="text" className="rounded-md p-2 text-black mb-3"/>
                         <div onClick={handleCreatePlaylist} className="bg-gray-700 text-white hover:bg-white hover:text-gray-700 transition rounded-md py-1 px-3 cursor-pointer text-md">Crea</div>
@@ -93,10 +95,7 @@ const SideNav = () => {
                       
                       {playlists.length > 0 && (
                         playlists.map(playlist => (
-                          <div className="flex gap-2 hover:bg-gray-200 hover:text-black transition cursor-pointer p-2 rounded-md">
-                            <RiPlayList2Fill size={20}/>
-                            <div>{playlist.playlistTitle}</div>
-                          </div>
+                          <PlaylistSideNavItem playlist={playlist} setPlaylists={setPlaylists}/>
                         ))
                       )
                       }
