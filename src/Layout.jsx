@@ -1,9 +1,11 @@
 import MobileNav from "./components/MobileNav"
-import Player from "./components/Player"
 import SideNav from "./components/SideNav"
 import {IoIosArrowDown} from "react-icons/io"
+import { useState } from "react"
+import axios from "axios"
 
 const Layout = ({children}) => {
+
     return (
         <div className='flex flex-col h-[100vh] overflow-hidden'>
 

@@ -1,6 +1,5 @@
 import {AiOutlineSearch, AiOutlineDownCircle, AiFillDelete, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
 import {MdOutlineCategory} from "react-icons/md"
-import {RiPlayList2Fill} from "react-icons/ri" 
 import {ImMusic} from "react-icons/im"
 import SideNavItem from "./ui/SideNavItem"
 import { useNavigate } from "react-router-dom"
@@ -95,7 +94,7 @@ const SideNav = () => {
                       
                       {playlists.length > 0 && (
                         playlists.map(playlist => (
-                          <PlaylistSideNavItem playlist={playlist} setPlaylists={setPlaylists}/>
+                          <PlaylistSideNavItem key={playlist._id} playlist={playlist} setPlaylists={setPlaylists}/>
                         ))
                       )
                       }

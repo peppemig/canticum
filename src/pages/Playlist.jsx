@@ -1,50 +1,43 @@
 import { useParams } from "react-router-dom"
 import Layout from "../Layout"
-import RowIntestation from "../components/ui/RowIntestation"
-import SongRowItem from "../components/ui/SongRowItem"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import RowIntestation from "../components/ui/RowIntestation"
 
-const Album = () => {
+const Playlist = () => {
     const {id} = useParams()
-    const [album, setAlbum] = useState({})
-    const [playlists, setPlaylists] = useState([])
-    
+    const [playlist, setPlaylist] = useState({})
+
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/album/${id}`).then(response => {
-            setAlbum(response.data)
+        axios.get(`http://localhost:5000/api/playlist/${id}`).then(res => {
+            setPlaylist(res.data)
         })
-    }, [])
+    }, [id])
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/api/playlist').then(res => setPlaylists(res.data))
-    }, [])
-
-    return (
-        
+    return(
         <Layout>
-            {Object.keys(album).length > 0 &&
+            {Object.keys(playlist).length > 0 &&
             <div>
             <div className="bg-gray-800/50 h-[300px] w-full items-center flex p-5 gap-5">
 
                 <div className="max-h-[200px] w-[200px] bg-neutral-800 rounded-md mt-20 items-center justify-center flex">
-                    <img className="object-cover" src={album.cover}/>
+                    <img className="object-cover" src=""/>
                 </div>
 
                 <div className="flex flex-col mt-20 text-white">
-                    <div className="font-semibold text-lg">Album</div>
-                    <div className="text-4xl font-bold pb-5 truncate">{album.albumTitle}</div>
+                    <div className="font-semibold text-lg">Playlist</div>
+                    <div className="text-4xl font-bold pb-5 truncate">{playlist.playlistTitle}</div>
                     <div className="flex gap-2 flex-col">
                         <div className="flex items-center gap-2">
                             <div className="bg-red-500 h-[35px] max-w-[35px] rounded-full overflow-hidden">
-                                <img className="object-cover" src={album.cover}/>
+                                <img className="object-cover" src=""/>
                             </div>
-                            <div className="font-semibold">{album.artist}</div>
+                            <div className="font-semibold">TEST</div>
                         </div>
                         <div className="flex md:flex-row gap-2">
-                            <div className="font-bold">{album.year}</div>
+                            <div className="font-bold">TEST</div>
                             <div>•</div>
-                            <div>{album.songs.length} brani</div>
+                            <div>{playlist.playlistSongs.length} brani</div>
                         </div>
                     </div>
                 </div>
@@ -55,8 +48,8 @@ const Album = () => {
                 
                 <RowIntestation/>
 
-                {album.songs.length > 0 && album.songs.map((song, index) => (
-                    <SongRowItem playlists={playlists} key={song._id} song={song} album={album} n={index}/>
+                {playlist.playlistSongs.length > 0 && playlist.playlistSongs.map((song, index) => (
+                    <div className="text-white">{song.title}</div>
                 ))
                 }
 
@@ -65,9 +58,8 @@ const Album = () => {
             </div>
             </div>
             }
-
         </Layout>
     )
 }
 
-export default Album
+export default Playlist
