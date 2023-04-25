@@ -43,3 +43,14 @@ export const deletePlaylist = async (req,res) => {
         res.status(200).json(error)
     }
 }
+
+export const getPlaylistById = async (req,res) => {
+    const {id} = req.params
+
+    try {
+        const playlist = await Playlist.findById(id).populate("playlistSongs")
+        res.status(200).json(playlist)
+    } catch (error) {
+        res.status(200).json(error)
+    }
+}
