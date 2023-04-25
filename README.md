@@ -1,7 +1,7 @@
 # Canticum
 🎵 Canticum is a digital music service that fetches songs from S3 buckets (the design is pretty similar to Spotify, I know)
 
-STACK:
+**STACK:**
 - Frontend: React (Vite) + TailwindCSS
 - Backend: NodeJS (Express) + mongoDB
 - Storage (for mp3 files and images): Amazon S3
