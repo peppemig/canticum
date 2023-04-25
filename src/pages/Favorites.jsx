@@ -9,11 +9,16 @@ import { useLocation } from "react-router-dom"
 const Favorites = () => {
     const [favs, setFavs] = useState([])
     const {pathname} = useLocation()
+    const [playlists, setPlaylists] = useState([])
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/fav').then(response => {
             setFavs(response.data)
         })
+    }, [])
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/playlist').then(res => setPlaylists(res.data))
     }, [])
 
     useEffect(() => {
@@ -45,7 +50,7 @@ const Favorites = () => {
 
                 {favs.length > 0 && (
                     favs.map((fav, index) => (
-                        <SongRowItem favs={favs} setFavs={setFavs} key={fav._id} favId={fav._id} location={pathname} song={fav.favSong} album={fav.album} n={index}/>
+                        <SongRowItem playlists={playlists} favs={favs} setFavs={setFavs} key={fav._id} favId={fav._id} location={pathname} song={fav.favSong} album={fav.album} n={index}/>
                     ))
                 )}
 

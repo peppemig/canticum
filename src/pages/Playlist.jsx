@@ -3,6 +3,7 @@ import Layout from "../Layout"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import RowIntestation from "../components/ui/RowIntestation"
+import SongRowItem from "../components/ui/SongRowItem"
 
 const Playlist = () => {
     const {id} = useParams()
@@ -49,7 +50,7 @@ const Playlist = () => {
                 <RowIntestation/>
 
                 {playlist.playlistSongs.length > 0 && playlist.playlistSongs.map((song, index) => (
-                    <div className="text-white">{song.title}</div>
+                    <SongRowItem key={song._id} song={song} album={song.album} n={index}/>
                 ))
                 }
 

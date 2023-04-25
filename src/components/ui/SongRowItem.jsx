@@ -89,7 +89,7 @@ const SongRowItem = ({favs, setFavs, song, album, n, favId, location, playlists}
             <div onClick={() => setShowPlaylistMenu(!showPlaylistMenu)} className="relative flex items-center cursor-pointer">
                 <BsThreeDotsVertical/>
                 {showPlaylistMenu &&
-                    <div className="scaleIn z-10 absolute w-[200px] h-auto max-h-[200px] overflow-y-auto bg-gray-900 border-[1px] border-white rounded-md top-10 flex flex-col p-3">
+                    <div className="scaleIn z-10 absolute w-[200px] h-auto max-h-[200px] overflow-y-auto bg-gray-900 border-[1px] border-white rounded-md top-10 -left-20 flex flex-col p-3">
                         <div className="mb-2">Aggiungi alla playlist</div>
                         {playlists.length > 0 && (
                             playlists.map(playlist => (

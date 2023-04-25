@@ -87,10 +87,13 @@ const SideNav = () => {
                       }
                     </div>
                     
+                    {playlists.length > 0 &&
+                    <>
                     <div className="h-[2px] w-full flex bg-gray-300"></div>
                     
                     <div className="text-lg">Playlists</div>
-                    <div className="h-[200px] w-full flex flex-col bg-gray-700 rounded-md overflow-y-auto overflow-x-hidden p-2">
+
+                    <div className="h-auto max-h-[200px] w-full flex flex-col bg-gray-700 rounded-md overflow-y-auto overflow-x-hidden p-2">
                       
                       {playlists.length > 0 && (
                         playlists.map(playlist => (
@@ -100,6 +103,8 @@ const SideNav = () => {
                       }
 
                     </div>
+                    </>
+                    }
                      
                 </div>
 

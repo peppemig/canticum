@@ -9,6 +9,7 @@ import Player from './components/Player';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { Toaster } from "react-hot-toast"
+import Playlists from './pages/Playlists';
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
               <Route path='/albums' element={<Albums/>}/>
               <Route path='/album/:id' element={<Album/>}/>
               <Route path='/playlist/:id' element={<Playlist/>}/>
+              <Route path='/playlist' element={<Playlists/>}/>
             </Routes>
         </BrowserRouter>
         <Player/>

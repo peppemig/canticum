@@ -13,8 +13,8 @@ const PlaylistSideNavItem = ({playlist, setPlaylists}) => {
     }
 
     return(
-        <div onClick={() => navigate(`/playlist/${playlistId}`)} className="flex gap-2 hover:bg-gray-200 hover:text-black transition cursor-pointer p-2 rounded-md justify-between">
-            <div className="flex min-w-[80%] w-[80%] gap-2">
+        <div className="flex gap-2 hover:bg-gray-200 hover:text-black transition cursor-pointer p-2 rounded-md justify-between">
+            <div onClick={() => navigate(`/playlist/${playlistId}`)} className="flex min-w-[80%] w-[80%] gap-2">
                 <RiPlayList2Fill size={20}/>
                 <div className="flex truncate overflow-hidden">{playlist.playlistTitle}</div>
             </div>
