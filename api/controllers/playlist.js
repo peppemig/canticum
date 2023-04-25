@@ -48,7 +48,7 @@ export const getPlaylistById = async (req,res) => {
     const {id} = req.params
 
     try {
-        const playlist = await Playlist.findById(id).populate("playlistSongs")
+        const playlist = await Playlist.findById(id).populate({path: 'playlistSongs', populate: {path: 'album', model: 'Album'}})
         res.status(200).json(playlist)
     } catch (error) {
         res.status(200).json(error)
