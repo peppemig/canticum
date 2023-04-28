@@ -10,7 +10,6 @@ import axios from "axios"
 
 
 const Player = () => {
-    //const id = "643d0f3f9c975b0b00022a74"
     var elem = document.documentElement
     const [isPlaying, setIsPlaying] = useState(false)
     const [songToPlay, setSongToPlay] = useState({})
@@ -44,18 +43,6 @@ const Player = () => {
         setIsPlaying(true)
       }
     }
-
-    const handleFullScreenView = () => {
-      setFullscreenView(!fullscreenView)
-    }
-
-    useEffect(() => {
-      if (fullscreenView) {
-        document.exitFullscreen();
-      } else {
-        elem.requestFullscreen()
-      }
-    }, [fullscreenView])
 
     const fullScreenClasses = "scaleIn overflow-x-hidden overflow-y-auto gap-14 backdrop-blur flex-col fixed bottom-0 md:bottom-0 bg-black/70 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[100vh] md:h-[10vh] text-white flex items-center justify-center md:p-3"
 
@@ -226,9 +213,11 @@ const Player = () => {
       )}
 
       {fullscreenView && (
-        <div className="bg-gray-900 h-screen w-screen z-10 fixed top-0 flex flex-col justify-between p-8">
+        <div style={{backgroundImage: `url("${songToPlay.album.cover}")`, backgroundSize: 'cover', backgroundPosition: 'center'}} className="fadeIn h-screen w-screen z-10 fixed top-0 flex flex-col justify-between">
+          
+          <div className="flex flex-col justify-between h-full w-full p-10" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(8px)'}}>
 
-          <div className="bg-yellow-500 flex justify-between items-center">
+          <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div><ImMusic size={40} color="white"/></div>
               <div className="flex flex-col text-white">
@@ -236,10 +225,9 @@ const Player = () => {
                 <div className="font-bold text-xl">{songToPlay.album.artist}</div>
               </div>
             </div>
-            <div><TbArrowsDiagonalMinimize2 className="cursor-pointer" size={25} color="white" onClick={() => {setFullscreenView(false); document.exitFullscreen()}}/></div>
           </div>
 
-          <div className="bg-green-500 flex flex-col gap-3">
+          <div className="flex flex-col gap-10">
 
               <div className="flex items-center gap-5">
                 <div className="min-h-[200px] h-[200px] min-w-[200px] w-[200px] bg-red-500">
@@ -251,38 +239,42 @@ const Player = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-5">
 
-                <div className="bg-blue-500 flex w-full items-center justify-center gap-3">
+                <div className="flex w-full items-center justify-center gap-3">
                   <div className="text-white font-semibold">0:00</div>
                   <div className="h-[3px] w-full bg-white rounded-lg"></div>
                   <div className="text-white font-semibold">4:20</div>
                 </div>
 
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between items-center w-full">
 
-                  <div><BiHeart size={24} color="white"/></div>
+                  <div><BiHeart size={25} color="white"/></div>
 
                   <div className="flex items-center gap-2">
-                    <BiShuffle className="text-gray-400 hover:text-white transition" size={20} />
-                    <BiSkipPrevious className="text-gray-400 hover:text-white transition" size={35}/>
+                    <BiShuffle className="text-white" size={25} />
+                    <BiSkipPrevious className="text-white" size={40}/>
                     {Object.keys(songToPlay).length > 0 ? (
                                   <div>
-                    {!isPlaying ? <AiFillPlayCircle onClick={PlayPause} className="hover:scale-125 transition" size={40}/> : <AiFillPauseCircle onClick={PlayPause} className="hover:scale-125 transition" size={40}/>}
+                    {!isPlaying ? <AiFillPlayCircle color="white" onClick={PlayPause} className="hover:scale-125 transition" size={60}/> : <AiFillPauseCircle onClick={PlayPause} color="white" className="hover:scale-125 transition" size={60}/>}
                     </div>
                     ) : (
                       <AiFillPlayCircle size={40} className="text-gray-400"/>
                     )
                     }
-                    <BiSkipNext className="text-gray-400 hover:text-white transition" size={35}/>
-                    <BsRepeat className="text-gray-400 hover:text-white transition" size={20}/>
+                    <BiSkipNext className="text-white" size={40}/>
+                    <BsRepeat className="text-white" size={25}/>
                   </div>
 
-                  <div>3</div>
+                  <div>
+                    <TbArrowsDiagonalMinimize2 className="cursor-pointer" size={25} color="white" onClick={() => {setFullscreenView(false); document.exitFullscreen()}}/>
+                  </div>
 
                 </div>
 
               </div>
+
+          </div>
 
           </div>
 
