@@ -1,7 +1,8 @@
-import {AiOutlineCloseCircle, AiOutlineHeart, AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai"
-import {BiSkipPrevious, BiSkipNext, BiShuffle} from "react-icons/bi"
+import {AiOutlineCloseCircle, AiOutlineHeart, AiFillPlayCircle, AiFillPauseCircle, AiOutlineExpandAlt} from "react-icons/ai"
+import {BiSkipPrevious, BiSkipNext, BiShuffle, BiHeart} from "react-icons/bi"
 import {BsRepeat, BsFillVolumeDownFill} from "react-icons/bs"
-import {TbMicrophone2} from "react-icons/tb"
+import {TbMicrophone2, TbArrowsDiagonalMinimize2} from "react-icons/tb"
+import {ImMusic} from "react-icons/im"
 import {HiViewList} from "react-icons/hi"
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
@@ -10,9 +11,11 @@ import axios from "axios"
 
 const Player = () => {
     //const id = "643d0f3f9c975b0b00022a74"
+    var elem = document.documentElement
     const [isPlaying, setIsPlaying] = useState(false)
     const [songToPlay, setSongToPlay] = useState({})
     const [fullscreen, setFullScreen] = useState(false)
+    const [fullscreenView, setFullscreenView] = useState(false) 
     const audioElem = useRef()
 
     const currentSong = useSelector((state) => state.currentSong.currentSong)
@@ -41,6 +44,18 @@ const Player = () => {
         setIsPlaying(true)
       }
     }
+
+    const handleFullScreenView = () => {
+      setFullscreenView(!fullscreenView)
+    }
+
+    useEffect(() => {
+      if (fullscreenView) {
+        document.exitFullscreen();
+      } else {
+        elem.requestFullscreen()
+      }
+    }, [fullscreenView])
 
     const fullScreenClasses = "scaleIn overflow-x-hidden overflow-y-auto gap-14 backdrop-blur flex-col fixed bottom-0 md:bottom-0 bg-black/70 md:bg-gray-900 border-0 md:border-t-[1px] w-screen h-[100vh] md:h-[10vh] text-white flex items-center justify-center md:p-3"
 
@@ -204,9 +219,74 @@ const Player = () => {
             <div className="bg-gray-200 h-[5px] w-[60px] rounded-md">
             </div>
           </div>
+          <AiOutlineExpandAlt className="cursor-pointer" onClick={() => {setFullscreenView(true); elem.requestFullscreen()}} size={20}/>
         </div>
 
       </div>
+      )}
+
+      {fullscreenView && (
+        <div className="bg-gray-900 h-screen w-screen z-10 fixed top-0 flex flex-col justify-between p-8">
+
+          <div className="bg-yellow-500 flex justify-between items-center">
+            <div className="flex items-center gap-3">
+              <div><ImMusic size={40} color="white"/></div>
+              <div className="flex flex-col text-white">
+                <div className="font-semibold">RIPRODUZIONE DA ARTISTA</div>
+                <div className="font-bold text-xl">{songToPlay.album.artist}</div>
+              </div>
+            </div>
+            <div><TbArrowsDiagonalMinimize2 className="cursor-pointer" size={25} color="white" onClick={() => {setFullscreenView(false); document.exitFullscreen()}}/></div>
+          </div>
+
+          <div className="bg-green-500 flex flex-col gap-3">
+
+              <div className="flex items-center gap-5">
+                <div className="min-h-[200px] h-[200px] min-w-[200px] w-[200px] bg-red-500">
+                  <img src={songToPlay.album.cover} alt="" />
+                </div>
+                <div className="flex flex-col text-white gap-2 h-full justify-end">
+                  <div className="font-bold text-5xl">{songToPlay.title}</div>
+                  <div className="font-semibold text-3xl">{songToPlay.album.artist}</div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center justify-center">
+
+                <div className="bg-blue-500 flex w-full items-center justify-center gap-3">
+                  <div className="text-white font-semibold">0:00</div>
+                  <div className="h-[3px] w-full bg-white rounded-lg"></div>
+                  <div className="text-white font-semibold">4:20</div>
+                </div>
+
+                <div className="flex justify-between w-full">
+
+                  <div><BiHeart size={24} color="white"/></div>
+
+                  <div className="flex items-center gap-2">
+                    <BiShuffle className="text-gray-400 hover:text-white transition" size={20} />
+                    <BiSkipPrevious className="text-gray-400 hover:text-white transition" size={35}/>
+                    {Object.keys(songToPlay).length > 0 ? (
+                                  <div>
+                    {!isPlaying ? <AiFillPlayCircle onClick={PlayPause} className="hover:scale-125 transition" size={40}/> : <AiFillPauseCircle onClick={PlayPause} className="hover:scale-125 transition" size={40}/>}
+                    </div>
+                    ) : (
+                      <AiFillPlayCircle size={40} className="text-gray-400"/>
+                    )
+                    }
+                    <BiSkipNext className="text-gray-400 hover:text-white transition" size={35}/>
+                    <BsRepeat className="text-gray-400 hover:text-white transition" size={20}/>
+                  </div>
+
+                  <div>3</div>
+
+                </div>
+
+              </div>
+
+          </div>
+
+        </div>
       )}
 
     </div>

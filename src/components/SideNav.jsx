@@ -1,4 +1,4 @@
-import {AiOutlineSearch, AiOutlineDownCircle, AiFillDelete, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
+import {AiOutlineSearch, AiOutlineDownCircle, AiOutlineHome, AiOutlinePlusCircle, AiOutlineHeart} from "react-icons/ai"
 import {MdOutlineCategory} from "react-icons/md"
 import {ImMusic} from "react-icons/im"
 import SideNavItem from "./ui/SideNavItem"
