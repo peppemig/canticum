@@ -4,7 +4,11 @@
 **STACK:**
 - Frontend: React (Vite) + TailwindCSS
 - Backend: NodeJS (Express) + mongoDB
-- Storage (for mp3 files and images): Amazon S3
+- Storage (for mp3 files and album covers images): Amazon S3
+
+# Features:
+- Canticum Player: users can search for music, add songs to favorites and create playlists.
+- Canticum Dashboard: users can create their own album (uploading their own cover art image and mp3 songs)
 
 # Canticum Player
 ![canticumnew](https://user-images.githubusercontent.com/120139042/232475246-c4e39a6b-eec4-40a4-953f-d34232c0e10d.png)
