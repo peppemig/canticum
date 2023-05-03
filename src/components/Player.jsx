@@ -6,6 +6,7 @@ import {ImMusic} from "react-icons/im"
 import {HiViewList} from "react-icons/hi"
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
+import durationToMillis from "../utils/durationToMillis"
 import axios from "axios"
 
 
@@ -14,33 +15,50 @@ const Player = () => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [songToPlay, setSongToPlay] = useState({})
     const [fullscreen, setFullScreen] = useState(false)
-    const [fullscreenView, setFullscreenView] = useState(false) 
+    const [fullscreenView, setFullscreenView] = useState(false)
+    const [currentSongDuration, setCurrentSongDuration] = useState(0)
+    const [currentSongTime, setCurrentSongTime] = useState(0)
+    const [currentSongTimeString, setCurrentSongTimeString] = useState('0:00') 
     const audioElem = useRef()
 
     const currentSong = useSelector((state) => state.currentSong.currentSong)
+
+    function millisToMinutesAndSeconds(millis) {
+      var minutes = Math.floor(millis / 60000);
+      var seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
 
     useEffect(() => {
       if (currentSong !== '') {
         axios.get(`http://localhost:5000/api/song/${currentSong}`).then(response => {
           setSongToPlay(response.data)
-          audioElem.current.pause()
-          audioElem.current.load()
           setIsPlaying(false)
         })
       }
     }, [currentSong])
 
     useEffect(() => {
-      PlayPause()
+
+      if(songToPlay.duration !== undefined) {
+        PlayPause()
+        setCurrentSongDuration(durationToMillis(songToPlay.duration))
+        setInterval(()=>{setCurrentSongTime(prev => prev + 1)}, 1000);
+      }
+    
     }, [songToPlay])
+
+    useEffect(() => {
+        setCurrentSongTimeString(millisToMinutesAndSeconds(currentSongTime * 1000))
+    }, [currentSongTime])
 
     const PlayPause = () => {
       if(isPlaying){
+        clearInterval()
         audioElem.current.pause()
         setIsPlaying(false)
       } else {
-        audioElem.current.play()
-        setIsPlaying(true)
+        audioElem.current.play().then(setIsPlaying(true))
       }
     }
 
@@ -114,7 +132,7 @@ const Player = () => {
             </div>
             <div className="flex justify-between">
               <div className="text-xs">
-                0:00
+                {currentSongTimeString}
               </div>
               <div className="text-xs">
                 {songToPlay.duration}
@@ -185,9 +203,9 @@ const Player = () => {
           {Object.keys(songToPlay).length > 0 &&
             <>
             <div className="text-xs">
-              0:00
+              {currentSongTimeString}
             </div>
-            <div className="bg-gray-200 h-[5px] w-[200px] md:w-[300px] lg:w-[500px] rounded-md">
+            <div className="bg-gray-400 h-[5px] w-[200px] md:w-[300px] lg:w-[500px] rounded-md">
             </div>
             <div className="text-xs">
               {songToPlay.duration}
@@ -242,9 +260,9 @@ const Player = () => {
               <div className="flex flex-col items-center justify-center gap-5">
 
                 <div className="flex w-full items-center justify-center gap-3">
-                  <div className="text-white font-semibold">0:00</div>
+                  <div className="text-white font-semibold">{currentSongTimeString}</div>
                   <div className="h-[3px] w-full bg-white rounded-lg"></div>
-                  <div className="text-white font-semibold">4:20</div>
+                  <div className="text-white font-semibold">{songToPlay.duration}</div>
                 </div>
 
                 <div className="flex justify-between items-center w-full">
